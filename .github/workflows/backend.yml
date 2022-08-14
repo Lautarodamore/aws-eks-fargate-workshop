@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - backend/*
+      - .github/workflows/backend.yml
+
+jobs:
+  backend-push-image:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Deploy api
+        run: |
+          cd backend
+          echo "Build docker image"
+          docker build --tag backend:latest --build-arg COMMIT_SHA=${GITHUB_SHA} .
+          echo "Push image to ECR"
+          docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} amazon/aws-cli ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
+          docker tag backend:latest 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+          docker push 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
