@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Deploy api
+      - name: Push backend image
         run: |
           cd backend
           echo "Build docker image"
