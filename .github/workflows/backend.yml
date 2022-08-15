@@ -15,6 +15,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'v1.21.3'
+        id: install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: Push backend image
         run: |
           cd backend
@@ -24,3 +35,8 @@ jobs:
           docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} amazon/aws-cli ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
           docker tag backend:latest 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend:latest
           docker push 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name demo --region us-east-1
+      - name: Deploy image to Amazon EKS
+        run: |
+          kubectl apply -f k8s/backend-deployment.yaml
