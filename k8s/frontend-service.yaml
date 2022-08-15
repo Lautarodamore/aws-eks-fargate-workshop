@@ -5,6 +5,7 @@ metadata:
   namespace: staging
   labels:
     app: frontend
+    app.kubernetes.io/name: frontend
 spec:
   type: NodePort
   selector:
