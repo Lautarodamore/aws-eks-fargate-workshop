@@ -12,7 +12,7 @@ RUN gradle --parallel --build-cache -Dorg.gradle.console=plain -Dorg.gradle.daem
 ###########################################################################
 FROM openjdk:16-alpine
 
-ENV PORT 6060
+ENV PORT 80
 
 WORKDIR /app
 
