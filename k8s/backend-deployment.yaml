@@ -19,7 +19,7 @@ spec:
         - name: backend
           image: 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
           ports:
-            - containerPort: 6060
+            - containerPort: 80
           resources:
             limits:
               cpu: 200m
