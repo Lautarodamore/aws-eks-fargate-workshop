@@ -5,7 +5,7 @@ import io.javalin.http.Context
 import org.slf4j.LoggerFactory
 
 fun main() {
-    val httpServer = HttpServer(6060)
+    val httpServer = HttpServer(80)
     httpServer.start()
 }
 
