@@ -17,6 +17,7 @@ spec:
       containers:
         - name: backend
           image: 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
+          imagePullPolicy: Always
           env:
             - name: PORT
               valueFrom:
