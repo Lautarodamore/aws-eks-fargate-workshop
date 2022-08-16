@@ -41,7 +41,7 @@ jobs:
         run: aws eks update-kubeconfig --name demo --region us-east-1
       - name: Deploy image to Amazon EKS
         run: |
-          kubectl create secret generic backend --from-literal=port=${PORT}
+          kubectl create secret generic backend -n staging --from-literal=port=${PORT}
           kubectl apply -f k8s/backend-deployment.yaml
           kubectl apply -f k8s/backend-service.yaml
           kubectl apply -f k8s/backend-pdb.yaml
