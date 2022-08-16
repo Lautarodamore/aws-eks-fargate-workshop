@@ -8,8 +8,7 @@ spec:
   selector:
     matchLabels:
       run: backend
-  # remove replica if using gitops
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
