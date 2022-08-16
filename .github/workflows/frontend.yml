@@ -31,8 +31,6 @@ jobs:
         run: |
           cd frontend
           echo "API=https://backend.ldamore.com/" > .env.local
-          ls
-          cat env.local
           echo "Build docker image"
           docker build --tag frontend:latest .
           echo "Push image to ECR"
