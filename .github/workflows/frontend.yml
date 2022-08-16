@@ -12,6 +12,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      API: ${{ secrets.API }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,6 +30,7 @@ jobs:
       - name: Push frontend image
         run: |
           cd frontend
+          echo "API=${API}" > env.local
           echo "Build docker image"
           docker build --tag frontend:latest --build-arg COMMIT_SHA=${GITHUB_SHA} .
           echo "Push image to ECR"
