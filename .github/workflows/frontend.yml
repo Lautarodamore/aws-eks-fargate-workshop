@@ -32,6 +32,7 @@ jobs:
           cd frontend
           echo "API=${API}" > env.local
           ls
+          cat env.local
           echo "Build docker image"
           docker build --tag frontend:latest --build-arg COMMIT_SHA=${GITHUB_SHA} .
           echo "Push image to ECR"
