@@ -30,11 +30,11 @@ jobs:
       - name: Push frontend image
         run: |
           cd frontend
-          echo "API=${API}" > env.local
+          echo "API=https://backend.ldamore.com/" > env.local
           ls
           cat env.local
           echo "Build docker image"
-          docker build --tag frontend:latest --build-arg COMMIT_SHA=${GITHUB_SHA} .
+          docker build --tag frontend:latest .
           echo "Push image to ECR"
           docker run --rm -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} amazon/aws-cli ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 186990837788.dkr.ecr.us-east-1.amazonaws.com/frontend
           docker tag frontend:latest 186990837788.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
