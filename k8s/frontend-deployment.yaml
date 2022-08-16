@@ -9,7 +9,7 @@ spec:
     matchLabels:
       run: frontend
   # remove replica if using gitops
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
