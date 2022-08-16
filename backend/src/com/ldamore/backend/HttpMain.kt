@@ -1,11 +1,14 @@
 package com.ldamore.backend
 
+import com.nbottarini.asimov.environment.Env
 import io.javalin.Javalin
 import io.javalin.http.Context
 import org.slf4j.LoggerFactory
 
 fun main() {
-    val httpServer = HttpServer(80)
+    Env.addSearchPath("./backend")
+
+    val httpServer = HttpServer(Env.getOrThrow("PORT").toInt())
     httpServer.start()
 }
 
@@ -33,6 +36,7 @@ class HttpServer(private val port: Int) {
     }
 
     fun start() {
+        println("listeneningggggggggg on port $port")
         app.start(port)
     }
 

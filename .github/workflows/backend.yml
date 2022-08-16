@@ -13,6 +13,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      PORT: ${{ secrets.PORT }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -40,6 +41,7 @@ jobs:
         run: aws eks update-kubeconfig --name demo --region us-east-1
       - name: Deploy image to Amazon EKS
         run: |
+          kubectl create secret generic backend --from-literal=port=${PORT}
           kubectl apply -f k8s/backend-deployment.yaml
           kubectl apply -f k8s/backend-service.yaml
           kubectl apply -f k8s/backend-pdb.yaml

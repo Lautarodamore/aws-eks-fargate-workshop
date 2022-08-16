@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       run: backend
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -17,6 +17,12 @@ spec:
       containers:
         - name: backend
           image: 186990837788.dkr.ecr.us-east-1.amazonaws.com/backend
+          env:
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend
+                  key: port
           ports:
             - containerPort: 80
           resources:
