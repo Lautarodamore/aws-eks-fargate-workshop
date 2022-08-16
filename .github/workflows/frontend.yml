@@ -30,7 +30,7 @@ jobs:
       - name: Push frontend image
         run: |
           cd frontend
-          echo "API=https://backend.ldamore.com/" > env.local
+          echo "API=https://backend.ldamore.com/" > .env.local
           ls
           cat env.local
           echo "Build docker image"
