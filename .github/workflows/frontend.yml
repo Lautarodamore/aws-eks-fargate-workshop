@@ -44,3 +44,4 @@ jobs:
           kubectl apply -f k8s/frontend-deployment.yaml
           kubectl apply -f k8s/frontend-service.yaml
           kubectl apply -f k8s/frontend-pdb.yaml
+          kubectl rollout restart deployment/frontend
