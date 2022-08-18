@@ -34,5 +34,4 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/terraform
           terraform init -backend-config "access_key=${AWS_ACCESS_KEY_ID}" -backend-config "secret_key=${AWS_SECRET_ACCESS_KEY}"
-          terraform plan -var="aws_access_key=${AWS_ACCESS_KEY_ID}" -var="aws_secret_key=${AWS_SECRET_ACCESS_KEY}" -out="terraform.tfplan"
-          terraform apply -auto-approve terraform.tfplan
+          terraform destroy
